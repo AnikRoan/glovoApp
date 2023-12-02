@@ -1,6 +1,6 @@
 package com.example.servis;
 
-import com.example.noname.Order;
+import com.example.dto.Order;
 
 import java.util.List;
 

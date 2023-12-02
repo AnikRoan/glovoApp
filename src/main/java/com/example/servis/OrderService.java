@@ -1,6 +1,6 @@
 package com.example.servis;
 
-import com.example.noname.Order;
+import com.example.dto.Order;
 import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
