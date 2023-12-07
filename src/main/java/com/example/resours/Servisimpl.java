@@ -1,4 +1,4 @@
-package com.example.servis;
+package com.example.resours;
 
 import com.example.dto.Order;
 
@@ -10,7 +10,7 @@ public interface Servisimpl {
      List<Order> getAllOrders();
 
      void addOrder(Order order);
-     void updateOrder(int id,Order order);
+     void updateOrder(Order order);
      void removeOrder(int id);
 
 

@@ -1,49 +1,59 @@
 package com.example.servis;
 
 import com.example.dto.Order;
+import com.example.repository.jdbs.OrderJdbcRepository;
+import com.example.resours.Servisimpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.util.ArrayList;
+
 import java.util.List;
-import java.util.Objects;
+
 
 
 @Service
+@RequiredArgsConstructor
 public class OrderService implements Servisimpl {
-    List<Order> orders = new ArrayList<>();
+
+
+  //private final OrderRepository orderRepository;
+  private final OrderJdbcRepository orderJdbcRepository;
+
+
 
 
     @Override
     public Order getOrderByID(int id) {
-        return orders.stream()
-                .filter(order -> Objects.equals(id, order.getId()))
-                .findFirst()
-                .orElse(null);
+        return orderJdbcRepository.getById(id);
+
     }
+
 
     @Override
     public List<Order> getAllOrders() {
-        return orders;
+        return orderJdbcRepository.getAll();
     }
 
     @Override
     public void addOrder(Order order) {
-        orders.add(order);
+      orderJdbcRepository.save(order);
+
 
     }
 
     @Override
-    public void updateOrder(int id, Order newOrder) {
-        for (int i = 0; i < orders.size(); i++) {
-            if (orders.get(i).getId() == id) {
-                orders.set(i,newOrder);
-            }
+    public void updateOrder(Order order) {
+     orderJdbcRepository.update(order);
+
+
+
         }
 
 
-    }
+
     @Override
     public void removeOrder(int id) {
-        orders.removeIf(order -> Objects.equals(id, order.getId()));
+     orderJdbcRepository.delete(id);
 
-    }
+
+  }
 }
