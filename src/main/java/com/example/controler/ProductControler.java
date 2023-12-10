@@ -13,6 +13,8 @@ import java.util.List;
     @RestController
     @RequestMapping("/api/products")
 public class ProductControler {
+
+        // контроллер що взаемодіе з http
         private final ProductService productService;
 
         public ProductControler(ProductService productService) {

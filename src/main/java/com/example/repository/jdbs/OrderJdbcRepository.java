@@ -5,7 +5,7 @@ import com.example.dto.Product;
 import com.example.mapper.OrderMaper;
 import com.example.mapper.ProductMaper;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.LoggerFactory;
+
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -19,7 +19,7 @@ public class OrderJdbcRepository {
     private final String UPDATE_ORDER = "UPDATE orders SET date = ? WHERE id = ?";
     private final String DELETE_ORDER = "DELETE FROM orders WHERE id = ?";
     private final String INSERT_ORDER = "INSERT INTO orders(date) VALUES (?)";
-    //створюю замовлення по даті бо ціна це сумма cost продуктів а id генеруеться автоматично
+
 
     private final String SELECT_ORDER_BY_ID = "SELECT * FROM orders WHERE id=?";
     private final String SELECT_ALL = "SELECT * FROM orders";
@@ -66,26 +66,14 @@ public class OrderJdbcRepository {
 
 
     public void save(Order dto) {
-        //зберігати треба лише замовлення? чи й додавати продукти
-        //але це буде метод не save а add..
-        //чи  save маеться на увази create
-        //тоді ще треба
 
-        //INSERT INTO order_product(order_id, product_id)
-        //VALUES(1,1),(1,2),(1,3);
-        //його робити?
         jdbcTemplate.update(INSERT_ORDER, dto.getDate());
 
     }
 
 
     public void update(Order order) {
-        //тут так само мені треба й змінювати продукт?
-        //але кожен раз я можу хотіти змінити щось
-        // або просто видалити
-        // це теж ще методи
-        // їх треба писати ?
-        // чи то вже у Д.з де пишемо методи для Order Product?
+
         jdbcTemplate.update(UPDATE_ORDER, order.getDate(), order.getId());
 
     }

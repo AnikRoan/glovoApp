@@ -11,6 +11,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService implements ServiceProductImpl {
 
+    //це мій сервіс й методи з jdbc такий собі класс адаптер
+
     public final ProductJdbcRepository productJdbcRepository;
 
 
