@@ -1,25 +1,33 @@
 package com.example.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import lombok.*;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 
 @Data
-@AllArgsConstructor
+
 @EqualsAndHashCode
+@AllArgsConstructor
+@ToString
+@Setter
 
 
 public class Order {
 
+
     private int id;
+    private double cost;
     private LocalDate date;
 
-    private double cost;
     private List<Product> products;
 
 
+    public Order() {
+        this.products = new ArrayList<>();
+
+    }
 }

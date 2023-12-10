@@ -1,0 +1,69 @@
+-- CREATE TABLE IF NOT EXISTS  product(
+--                                        id serial PRIMARY KEY,
+--                                        name VARCHAR(50),
+--     cost DOUBLE PRECISION NOT NULL
+--     );
+--
+-- INSERT INTO  product(name,cost)
+-- VALUES (?,?);
+--
+-- CREATE TABLE IF NOT EXISTS orders
+-- (
+--     id   serial PRIMARY KEY,
+--     cost DOUBLE PRECISION,
+--     date DATE
+-- );
+-- INSERT INTO orders(date)
+-- VALUES (?);
+--
+-- CREATE TABLE IF NOT EXISTS order_product(
+--     order_id INT REFERENCES orders(id) ON DELETE CASCADE,
+--     product_id INT REFERENCES product(id),
+--     PRIMARY KEY (order_id,product_id)
+--     );
+--
+--
+--
+--
+--
+-- INSERT INTO order_product(order_id, product_id)
+-- VALUES(1,1),(1,2),(1,3);
+--
+--
+-- SELECT
+--     orders.id AS order_id,
+--     orders.date AS order_date,
+--     (SELECT SUM(product.cost) FROM product
+--                                        JOIN order_product ON product.id = order_product.product_id
+--      WHERE order_product.order_id = orders.id) AS order_cost,
+--     product.id AS product_id,
+--     product.name AS product_name,
+--     product.cost AS product_cost
+-- FROM
+--     orders
+--         JOIN
+--     order_product ON orders.id = order_product.order_id
+--         JOIN
+--     product ON order_product.product_id = product.id
+-- WHERE
+--         orders.id = 1;
+--
+--
+-- UPDATE orders
+-- SET cost = (
+--     SELECT SUM(product.cost)
+--     FROM product
+--              JOIN order_product ON product.id = order_product.product_id
+--     WHERE order_product.order_id = orders.id
+-- )
+-- WHERE id = 1;
+--
+--
+--
+--
+--
+--
+-- SELECT * FROM orders;
+
+
+
