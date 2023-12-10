@@ -1,6 +1,7 @@
 package com.example.controler;
 
 import com.example.dto.Order;
+import com.example.resours.ApiResponse;
 import com.example.servis.OrderService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api/orders")
 public class OrderControler {
     private final OrderService orderService;
 
@@ -25,56 +26,75 @@ public class OrderControler {
     }
 
 
-    @GetMapping()
-    public Respons <List<Order>> ge(){
-        Respons <List<Order>> ordererer = new Respons<>();
-        List<Order> orders = orderService.getAllOrders();
-        if(!CollectionUtils.isEmpty(orders)){
-            ordererer.setSuccessful(true);
-            ordererer.setData(orders);
-
-        }
-        return  ordererer;
-
-
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<Order>orderId(@PathVariable("id") int id){
-        Order or = orderService.getOrderByID(id);
-        if(or!=null){
-          return   ResponseEntity.ok(or);
-        }
-        return (ResponseEntity<Order>) ResponseEntity.notFound();
-
-    }
-
     @GetMapping("/all")
-    public List<Order> getAll() {
-        return this.orderService.getAllOrders();
+    public ApiResponse<List<Order>> getAll() {
+        ApiResponse<List<Order>> allOrders = new ApiResponse<>();
+        List<Order> orders = orderService.getAllOrders();
+        if (!CollectionUtils.isEmpty(orders)) {
+            allOrders.setSuccessful(true);
+            allOrders.setData(orders);
+        } else {
+            allOrders.setSuccessful(false);
+            allOrders.setMesage("orders not found");
+        }
+        return allOrders;
+
+
     }
 
+
     @GetMapping("/{id}")
-    public Order get(@PathVariable Integer id) {
-        return this.orderService.getOrderByID(id);
+    public ApiResponse<Order> get(@PathVariable Integer id) {
+        ApiResponse<Order> orderResponse = new ApiResponse<>();
+        Order order = orderService.getOrderByID(id);
+        if (order != null) {
+            orderResponse.setSuccessful(true);
+            orderResponse.setData(order);
+        } else {
+            orderResponse.setSuccessful(false);
+            orderResponse.setMesage("order not found");
+        }
+        return orderResponse;
     }
 
     @PostMapping("/update")
-    public void saveOrder(@RequestBody Order order) {
+    public ApiResponse<Order> saveOrder(@RequestBody Order order) {
         this.orderService.updateOrder(order);
+        ApiResponse<Order> updateOrder = new ApiResponse<>();
+        updateOrder.setSuccessful(true);
+        updateOrder.setMesage("order updated successfully");
+        updateOrder.setData(order);
+
+        return updateOrder;
+
 
     }
+
     @PostMapping("/create")
-    public ResponseEntity<String> createOrder(@RequestBody Order order) {
+    public ApiResponse<Order> createOrder(@RequestBody Order order) {
         orderService.addOrder(order);
+        ApiResponse<Order> newOrder = new ApiResponse<>();
+        newOrder.setSuccessful(true);
+        newOrder.setData(order);
+        newOrder.setMesage("create order");
 
-
-        return new ResponseEntity<>("Order created successfully", HttpStatus.CREATED);
+        return newOrder;
     }
 
     @DeleteMapping("/{id}")
-    public void delitOrder(@PathVariable int id) {
-        this.orderService.removeOrder(id);
+    public ApiResponse<String> delitOrder(@PathVariable int id) {
+        Order o = this.orderService.getOrderByID(id);
+        ApiResponse<String> order = new ApiResponse<>();
+        if (o != null) {
+            this.orderService.removeOrder(id);
+            order.setSuccessful(true);
+            order.setMesage("order deleted");
+        } else {
+            order.setSuccessful(false);
+            order.setMesage("order not found");
+        }
+        return order;
+
 
     }
 }

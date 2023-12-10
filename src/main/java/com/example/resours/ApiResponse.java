@@ -1,11 +1,11 @@
-package com.example.controler;
+package com.example.resours;
 
 import lombok.Data;
 
 import java.util.List;
 @Data
-public class Respons <D>{
+public class ApiResponse<D>{
     boolean isSuccessful;
     D data;
-    List<String> mesages;
+    String mesage;
 }

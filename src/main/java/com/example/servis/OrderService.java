@@ -2,7 +2,7 @@ package com.example.servis;
 
 import com.example.dto.Order;
 import com.example.repository.jdbs.OrderJdbcRepository;
-import com.example.resours.Servisimpl;
+import com.example.resours.ServiceOrderImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,11 +12,9 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class OrderService implements Servisimpl {
+public class OrderService implements ServiceOrderImpl {
 
-
-  //private final OrderRepository orderRepository;
-  private final OrderJdbcRepository orderJdbcRepository;
+    private final OrderJdbcRepository orderJdbcRepository;
 
 
 
@@ -36,24 +34,17 @@ public class OrderService implements Servisimpl {
     @Override
     public void addOrder(Order order) {
       orderJdbcRepository.save(order);
-
-
     }
 
     @Override
     public void updateOrder(Order order) {
      orderJdbcRepository.update(order);
-
-
-
-        }
+    }
 
 
 
     @Override
     public void removeOrder(int id) {
      orderJdbcRepository.delete(id);
-
-
-  }
+    }
 }

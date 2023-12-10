@@ -11,7 +11,7 @@ import java.util.List;
 @Repository
 @RequiredArgsConstructor
 public class ProductJdbcRepository {
-    private final String SELECT_ALL_PRODUCTS = "SELECT * FROM product";
+    private final String SELECT_ALL_PRODUCTS = "SELECT * FROM product LIMIT 100";
     private final String SELECT_PRODUCT_BY_ID = "SELECT * FROM product WHERE id = ?";
     private final String INSERT_PRODUCT = "INSERT INTO product(name,cost) VALUE(?,?)";
     private final String UPDATE_PRODUCT = "UPDATE product SET name = ?, cost = ? WHERE id =?";

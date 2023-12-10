@@ -4,7 +4,7 @@ import com.example.dto.Order;
 
 import java.util.List;
 
-public interface Servisimpl {
+public interface ServiceOrderImpl {
 
      Order getOrderByID(int id);
      List<Order> getAllOrders();
